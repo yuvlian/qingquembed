@@ -1,5 +1,5 @@
 # Rusty Embed Fixer Bot
-Very simple bot that resends your message with tiktok/instagram/twitter link(s) with the embed fixed.
+Very simple bot that resends your message that contains tiktok/instagram/twitter link(s) with the embed fixed.
 
 Relies on tnktok, ddinstagram, vxtwitter, and fixvx.
 
