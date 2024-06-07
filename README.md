@@ -2,7 +2,7 @@
 Very simple bot that resends your message that contains tiktok/instagram/twitter link(s) with the embed fixed.
 
 Relies on tnktok, ddinstagram, vxtwitter, and fixvx.
-
+![](https://raw.githubusercontent.com/yuvlian/yuvlian.github.io/main/rustembedbot.PNG)
 ## How to Use
 ### Prebuilt
 For those who don't even know what Rust is, go with this instead!
