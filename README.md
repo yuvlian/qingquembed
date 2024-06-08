@@ -1,31 +1,36 @@
 # Rusty Embed Fixer Bot
-Very simple bot that resends your message that contains tiktok/instagram/twitter link(s) with the embed fixed.
+Simple bot that resends your message that contains tiktok/instagram/twitter/x link(s) with the embed fixed. Written in rust using serenity.
 
-Relies on tnktok, ddinstagram, vxtwitter, and fixvx.
+I don't host it except for my own discord server, but I do provide prebuilt binaries so you can host it yourself easily.
 
-## How to Use
+## How to Use The Bot
+### Theres two methods:
+
+1. Say anything
+
+- As long as you have tiktok/instagram/twitter/x link(s) in your message, the bot will try to resend it. It won't re-reply or re-upload your attachment though. For tiktok slideshows, refer to the third command from below
+
+2. Actual commands
+
+- qdev -> returns version & dev name
+- qsay [something] -> make the bot say whatever you want (prebuilt does not have this command)
+- q[tiktok link] -> posts image links from tiktok slideshow in chunks of 5. if you use this with a tiktok video link instead, it will give you download link
+
+## How to get the bot
 ### Prebuilt
 For those who don't even know what Rust is, go with this instead!
-1. Download this https://github.com/yuvlian/rusty_embed_fixer_bot/releases/download/Release/rusty_embed_fixer_bot.7z
+1. Download this https://github.com/yuvlian/rusty_embed_fixer_bot/releases/download/1.1.0/rusty_embed_fixer_bot.7z
 2. Extract the zip
 3. Edit config.yml to your actual discord bot token
 4. Launch the binary (aka .exe)
 
-   (Yes I know it's named "rusty_tiktok_bot" despite supporting 2 other websites... too lazy to change it.)
-6. Bot is online!
+   (Yes I know it's named "rusty_tiktok_bot" despite supporting 2 other websites)
+5. Bot is online if you didn't mess anything up.
 
 ### Build from source
 I'm sure you already know how if you're planning to build from source
 
-## Wanna test?
-```
-test1: tiktok.com -> blehhttps://tiktok.com/a/a/a
-test2: www.tiktok.com -> blehhttps://www.tiktok.com/a/a/a
-test3: vt.tiktok.com -> blehhttps://vt.tiktok.com/a/a/a
-test4: vm.tiktok.com -> blehhttps://vm.tiktok.com/a/a/a
-test5: instagram.com -> blehhttps://instagram.com/a/a/a
-test6: www.instagram.com -> blehhttps://www.instagram.com/a/a/a
-test7: twitter.com -> blehhttps://twitter.com/a/a/a
-test8: x.com -> blehhttps://x.com/a/a/a
-```
-Try sending this in a channel and let the bot do it's job! :)
+### Special thanks
+- folks behind tnktok.com ddinstagram.com vxtwitter.com fixvx.com 
+- https://api.tiklydown.eu.org
+- xeondev

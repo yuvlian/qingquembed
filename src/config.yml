@@ -1,1 +1,3 @@
-token: "YourBotTokenHere, MAKE SURE TO PUT IN SAME DIRECTORY AS THE BINARY!"
+token: "Bot Token Here"
+
+# Make sure to keep this config file in the same directory as the binary.

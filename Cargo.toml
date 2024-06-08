@@ -1,11 +1,12 @@
 [package]
 name = "rusty_tiktok_bot"
-version = "0.1.0"
+version = "1.1.0"
+edition = "2021"
 authors = ["https://github.com/yuvlian"]
 
 [dependencies]
-lazy_static = "1.4.0"
 regex = "1.10.4"
+reqwest = { version = "0.12.4", features = ["json"] }
 serde = { version = "1.0.203", features = ["derive"] }
 serde_yml = "0.0.10"
 serenity = "0.12.2"
