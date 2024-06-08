@@ -25,7 +25,7 @@ For those who don't even know what Rust is, go with this instead!
 4. Launch the binary (aka .exe)
 
    (Yes I know it's named "rusty_tiktok_bot" despite supporting 2 other websites)
-5. Bot is online if you didn't mess anything up.
+5. As long as the binary is running, bot is online
 
 ### Build from source
 I'm sure you already know how if you're planning to build from source
