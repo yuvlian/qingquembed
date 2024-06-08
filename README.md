@@ -31,6 +31,6 @@ For those who don't even know what Rust is, go with this instead!
 I'm sure you already know how if you're planning to build from source
 
 ### Special thanks
-- folks behind tnktok.com ddinstagram.com vxtwitter.com fixvx.com 
+- folks behind serenity, tnktok.com, ddinstagram.com, vxtwitter.com, fixvx.com 
 - https://api.tiklydown.eu.org
 - xeondev
