@@ -1,5 +1,5 @@
 # Rusty Embed Fixer Bot
-Simple bot that resends your message that contains tiktok/instagram/twitter/x link(s) with the embed fixed. Written in rust using serenity.
+Simple bot that resends your message that contains tiktok/instagram/twitter/x link(s) with the embed fixed. Written in rust using serenity. Oh and, it can be used to download the content too.
 
 I don't host it except for my own discord server, but I do provide prebuilt binaries so you can host it yourself easily.
 
