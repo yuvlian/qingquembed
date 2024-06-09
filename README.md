@@ -1,5 +1,5 @@
 # Rusty Embed Fixer Bot
-Simple bot that resends your message that contains tiktok/instagram/twitter/x link(s) with the embed fixed. Written in rust using serenity. Oh and, it can be used to download the content too.
+Simple discord embed fixer bot that can also provide download links. Written in rust using serenity.
 
 I don't host it except for my own discord server, but I do provide prebuilt binaries so you can host it yourself easily.
 
@@ -12,14 +12,21 @@ I don't host it except for my own discord server, but I do provide prebuilt bina
 
 2. Actual commands
 
-- qdev -> returns version & dev name
-- qsay [something] -> make the bot say whatever you want (prebuilt does not have this command)
-- q[tiktok link] -> posts image links from tiktok slideshow in chunks of 5. if you use this with a tiktok video link instead, it will give you download link
+- qdev
+  - returns version & dev name
+- qsay [something]
+  - make the bot say whatever you want (prebuilt does not have this command)
+- q[link] 
+  - If used with tiktok slideshow link, will send all image links in chunks of 5 (this embeds)
+  - If used with tiktok video link, will give download link (this doesn't embed). Just paste normally without prefix if you want the embed.
+  - If used with instagram reel link, will give download link (this embeds)
+  - Doesn't work well with instagram slideshows, as instafix only returns the first 4 images and is manipulated as a grid
+  - Doesnt support anything twitter related yet. Not planning to.
 
 ## How to get the bot
 ### Prebuilt
 For those who don't even know what Rust is, go with this instead!
-1. Download this https://github.com/yuvlian/rusty_embed_fixer_bot/releases/download/1.1.0/rusty_embed_fixer_bot.7z
+1. Download this https://github.com/yuvlian/rusty_embed_fixer_bot/releases/download/1.2.0/rusty_embed_fixer_bot.7z
 2. Extract the zip
 3. Edit config.yml to your actual discord bot token
 4. Launch the binary (aka .exe)
