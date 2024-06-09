@@ -4,6 +4,7 @@ use serenity::{
     prelude::*,
 };
 use regex::Regex;
+use reqwest::Client as ReqClient;
 use std::sync::LazyLock;
 use serde::Deserialize;
 use std::{
@@ -26,6 +27,10 @@ static TNKTOK: LazyLock<String> = LazyLock::new(|| String::from("https://tnktok.
 static DDINSTAGRAM: LazyLock<String> = LazyLock::new(|| String::from("https://ddinstagram.com/"));
 static VXTWITTER: LazyLock<String> = LazyLock::new(|| String::from("https://vxtwitter.com/"));
 static FIXVX: LazyLock<String> = LazyLock::new(|| String::from("https://fixvx.com/"));
+static D_DDINSTAGRAM: LazyLock<String> = LazyLock::new(|| String::from("https://d.ddinstagram.com/"));
+
+// Reqwest Client for d.ddinstagram thing
+static T_BOT_CLIENT: LazyLock<ReqClient> = LazyLock::new(|| ReqClient::builder().user_agent("TelegramBot").build().unwrap());
 
 // Allowed users for "qsay" command
 static USER1: LazyLock<String> = LazyLock::new(|| String::from("876725552474644490"));
@@ -33,21 +38,23 @@ static USER1: LazyLock<String> = LazyLock::new(|| String::from("8767255524746444
 // Prefixes
 static PREFIX_QSAY: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^\bqsay\b").unwrap());
 static PREFIX_QDEV: LazyLock<String> = LazyLock::new(|| String::from("qdev"));
-static PREFIX_Q: LazyLock<String> = LazyLock::new(|| String::from("q"));
+static PREFIX_Q: LazyLock<String> = LazyLock::new(|| String::from("qhttp")); // Added "http" incase someone says stupid shit like quantum [link]
 
 // tiklydown.eu.org API Base URL
 static API_TIKLYDOWN_EU_ORG: LazyLock<String> = LazyLock::new(|| String::from("https://api.tiklydown.eu.org/api/download/v2?url="));
 
 // Version & Dev of Bot
-static DEV: LazyLock<String> = LazyLock::new(|| String::from("[version]\nrust = \"1.80.0-nightly\"\nserenity = \"0.12.2\"\nthis_bot = \"1.1.0\"\n\n[source]\ndev = \"yulian\"\nrepo = \"<https://github.com/yuvlian/rusty_embed_fixer_bot>\"\nlicense = \"bsd-3-clause\""));
+static DEV: LazyLock<String> = LazyLock::new(|| String::from("[version]\nrust = \"1.80.0-nightly\"\nserenity = \"0.12.2\"\nthis_bot = \"1.2.0\"\n\n[source]\ndev = \"yulian\"\nrepo = \"<https://github.com/yuvlian/rusty_embed_fixer_bot>\"\nlicense = \"bsd-3-clause\""));
 
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
+
         // Prevent bot loops.
         if msg.author.bot {
             return;
         }
+
 
         // Version check & dev.
         // Example usage: qdev
@@ -57,6 +64,7 @@ impl EventHandler for Handler {
             }
         }
         
+
         // Gets author id
         let allowed_user = &msg.author.id.to_string();
 
@@ -78,13 +86,20 @@ impl EventHandler for Handler {
              }
           }
 
+
         // TikTok Scraper. Sends image embed links if slideshow, sends download link to video if video. 
         // You can just paste without adding "q" before the link if you want to play a video.
         // Example usage: qhttps://www.tiktok.com/@xalbierblx/video/7356560922002951456
         if msg.content.starts_with(&*PREFIX_Q) && TIKTOK_REGEX.is_match(&msg.content) {
+
             // Notify that the bot detects the message.
-            if let Err(why) = msg.channel_id.say(&ctx.http, format!("Processing TikTok link: <{}>", &msg.content[1..])).await {
+            if let Err(why) = msg.channel_id.say(&ctx.http, format!("[<@{}>] Processing TikTok link: <{}>", msg.author.id, &msg.content[1..])).await {
                 println!("Error sending message: {why:?}");
+            }
+
+            // Deletes original message
+            if let Err(why) = msg.delete(&ctx.http).await {
+                println!("Error deleting message: {:?}", why);
             }
 
             // Formats base url + url from message
@@ -135,6 +150,48 @@ impl EventHandler for Handler {
                     }
                 }
             }
+        }
+
+
+        // Instagram scraper
+        // Doesn't work well with slideshows, as it depends on InstaFix, 
+        // which will return up to 4 images at once (and they are manipulated to be singular grid image)
+        // Good for downloading singular image or reel/video though.
+        // Usage example: qhttps://instagram.com/reel/C53oGPULGk0/
+	    if msg.content.starts_with(&*PREFIX_Q) && INSTAGRAM_REGEX.is_match(&msg.content) {
+
+            // Notify that the bot detects the message
+            if let Err(why) = msg.channel_id.say(&ctx.http, format!("[<@{}>] Processing Instagram link: <{}>", msg.author.id, &msg.content[1..])).await {
+                println!("Error sending message: {why:?}");
+            }
+
+            // Deletes original message
+            if let Err(why) = msg.delete(&ctx.http).await {
+                println!("Error deleting message: {:?}", why);
+            }
+
+            // convert original url to d.ddinstagram
+            let d_dd_url = INSTAGRAM_REGEX.replace_all(&msg.content[1..], &*D_DDINSTAGRAM);
+
+            // Start fetching response
+            match T_BOT_CLIENT.get(&*d_dd_url).send().await {
+                Ok(response) => {
+                    let response_url = response.url().to_string();
+
+                    // Send response to discord
+                    if let Err(why) = msg.channel_id.say(&ctx.http, format!("[Content 1]({})", &response_url)).await {
+                        println!("Error sending message: {:?}", why);
+                    }
+                }
+                // If fail
+                Err(why) => {
+                    println!("Error fetching URL: {:?}", why);
+                    if let Err(err_msg) = msg.channel_id.say(&ctx.http, format!("Failed to fetch Instagram data: {:?}", why)).await {
+                        println!("Error sending failure message: {:?}", err_msg);
+                    }
+                }
+            }
+            return;
         }
 
         // Prefixless stuff.
