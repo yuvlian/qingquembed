@@ -119,7 +119,7 @@ impl EventHandler for Handler {
 
                 // Bot sends the message
                 if let Err(why) = msg.channel_id.say(&ctx.http,
-                    PREFIX_QSAY.replace(&msg.content, "")
+                    msg.content.replace(&*PREFIX_QSAY, "")
                 ).await {
                     println!("Error sending message: {:?}", why);
                 }
