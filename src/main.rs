@@ -76,7 +76,7 @@ qingquembed = "1.3.0"
 
 [source]
 dev = "yulian"
-repo = "<https://github.com/yuvlian/rusty_embed_fixer_bot>"
+repo = "<https://github.com/yuvlian/qingquembed>"
 license = "bsd-3-clause"
 "#)
 }

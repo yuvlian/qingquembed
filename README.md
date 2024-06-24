@@ -7,7 +7,7 @@ Why Rust, you may ask? Cause it's so damn fast, safe, and the binary is small an
 
 The bot is named after the best girl from Honkai: Star Rail, Qingque.
 
-I only host this bot for myself, but I provide both Windows and Linux prebuilts so you can host it yourself easily.
+I only host this bot for myself, but I provide Windows ~~and~~ ~~Linux~~ prebuilts so you can host it yourself easily.
 
 ## Bot Usage
 ### There are two methods:
@@ -31,12 +31,17 @@ I only host this bot for myself, but I provide both Windows and Linux prebuilts 
 
 ## How To Get The Bot
 ### Prebuilt:
-unimplemented!()
+1. Download the latest [qingquembed.zip](https://github.com/yuvlian/qingquembed/releases).
+2. Extract the zip.
+3. Replace the token in config.yml with your discord bot token.
+4. Run the binary. 
+
+**Note:** Currently only has Windows prebuilt binary. Can't compile for Linux due to some linking bullshit on NixOS, and I'm not gonna bother.
 
 ### Build from source:
-I'm sure you already know how, if you are planning to build from source. And if you don't even know what Rust is, go with prebuilt.
+I'm sure you already know how to if you are planning to build from source. If you don't even know what Rust is, go with prebuilt.
 
-### Special thanks to:
+## Special thanks to:
 - Folks behind Rust and the dependencies of this bot, especially Serenity.
 - Folks behind VxTiktok, VxTwitter, and InstaFix.
 - Folks behind https://tiklydown.eu.org.
